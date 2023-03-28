@@ -27,3 +27,9 @@ fibonacci x
     | x == 2 = 1
     | otherwise =  fibonacci(x-1) + fibonacci(x-2)
 
+divisor :: Int -> Int -> Int
+divisor x y
+    |x < y = 0
+    |x == y = 1
+    |y == 1 = x
+    |otherwise = 1 + divisor (x-y, y)
