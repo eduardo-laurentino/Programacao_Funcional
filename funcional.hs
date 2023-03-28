@@ -27,14 +27,26 @@ fibonacci x
     | x == 2 = 1
     | otherwise =  fibonacci(x-1) + fibonacci(x-2)
 
-
+--Função que retorna o menor entre dois números
 menorDeDois :: Int -> Int -> String
 menorDeDois x y
     |x > y = "X e maior"
     |x < y = "Y e maior"
     |otherwise = "Sao Iguais"
 
+--Função que retorna a quantidade de algarismos de um número
 qtdAlgarismos :: Int -> Int
 qtdAlgarismos x
     |x < 10 = 1
     |otherwise = 1 + qtdAlgarismos(div x 10)
+
+--Função que retorna o resto da divisão
+modulo :: Int -> Int -> Int
+modulo x y = mod x y
+
+--Função que verifica se um número é par
+par :: Int -> String
+par x 
+    |modulo x 2 == 0 = "E Par"
+    |otherwise = "Nao e Par"
+
