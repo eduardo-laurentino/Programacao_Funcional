@@ -27,7 +27,9 @@ fibonacci x
     | x == 2 = 1
     | otherwise =  fibonacci(x-1) + fibonacci(x-2)
 
-menorDeDois :: Int -> Int -> Int
+
+menorDeDois :: Int -> Int -> String
 menorDeDois x y
-    |x > y = x
-    |x < y = y
+    |x > y = "X e maior"
+    |x < y = "Y e maior"
+    |otherwise = "Sao Iguais"
