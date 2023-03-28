@@ -33,3 +33,8 @@ menorDeDois x y
     |x > y = "X e maior"
     |x < y = "Y e maior"
     |otherwise = "Sao Iguais"
+
+qtdAlgarismos :: Int -> Int
+qtdAlgarismos x
+    |x < 10 = 1
+    |otherwise = 1 + qtdAlgarismos(div x 10)
