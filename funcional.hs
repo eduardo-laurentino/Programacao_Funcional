@@ -42,11 +42,48 @@ qtdAlgarismos x
 
 --Função que retorna o resto da divisão
 modulo :: Int -> Int -> Int
-modulo x y = mod x y
+modulo x y 
+    |div x y == 0 = True
+    |otherwise = False
 
 --Função que verifica se um número é par
-par :: Int -> String
+par :: Int -> Bool
 par x 
-    |modulo x 2 == 0 = "E Par"
-    |otherwise = "Nao e Par"
+    |modulo x 2 == 0 = True
+    |otherwise = False
 
+--Função que verifica se um número é primo
+primo :: Int -> Bool
+primo x 
+    |x == 1 = False
+    |x == 2 = True
+    |x > 2 && par x == True = False
+    |x > 2 && par x == False && modulo x 3 != 0 && modulo x 5 != 0 && modulo x 7 != 0 = True
+
+
+--Função que retorna se um número é coprimo
+coprimo :: Int -> Int -> Int -> Bool
+coprimo n d i 
+    |i == 1 = True
+    |modulo n i == 0 && modulo d i == 0 = False
+    |otherwise = coprimo n d i-1
+
+
+--Função que verifica se um número é primo de sofí german
+primoSG :: Int -> Bool
+primoSG n
+    |primo n == True && primo 2*n+1 == True = True
+    |otherwise == False
+    
+
+--Função que retorna a soma dos digitos de um número
+somaDigitos :: Int -> Int
+somaDigitos x
+    |x < 10 = x
+    |otherwise = (mod x 10) + somaDigitos (div x 10)
+
+--Função que retorna um número da sequência de Padovan
+padovan :: Int -> Int
+padovan x 
+    | x <= 2 = 1
+    |otherwise = padovan(x - 2) + padovan(x - 3)
