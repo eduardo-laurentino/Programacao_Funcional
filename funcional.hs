@@ -64,8 +64,8 @@ primo x
 coprimo :: Int -> Int -> Int -> Bool
 coprimo n d i 
     |i == 1 = True
-    |mod n i == 0 && mod d i == 0 = False
-    |otherwise = coprimo n d i-1
+    |modulo n i == 0 && modulo d i == 0 = False
+    |otherwise = coprimo n d (i-1)
 
 
 --Função que verifica se um número é primo de sofí german
