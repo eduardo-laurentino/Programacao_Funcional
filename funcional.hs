@@ -54,7 +54,7 @@ par x
 --Função que verifica se um número é primo
 primo :: Int -> Bool
 primo x 
-    |x == 1 = False
+    |x < 2 = False
     |x == 2 = True
     |x > 2 && par x == True = False
     |x > 2 && par x == False && modulo x 3 /= 0 && modulo x 5 /= 0 && modulo x 7 /= 0 = True
@@ -87,3 +87,19 @@ somaDigitos :: Int -> Int
 somaDigitos x
     |x < 10 = x
     |otherwise = (mod x 10) + somaDigitos(div x 10)
+
+--Função que retorna o0 resultado de uma potência
+potencia :: Int -> Int ->  Int
+potencia x y
+    |x == 0 && y /= 0 = x
+    |y == 0 = 1
+    |otherwise = x ^ y
+
+
+veja :: Int->IO ()
+veja n  
+    |n > 1000 = putStrLn"Maior que 1000"
+    |n > 100 && n < 1000 = putStrLn"Entre 100 e 1000"
+    |n < 100 = putStrLn"Menor que 100"    
+    |n == 1000 = putStrLn"Igual a 1000"
+    |n == 100 = putStrLn"Igual a 100"
