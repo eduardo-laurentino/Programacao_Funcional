@@ -129,3 +129,11 @@ nand :: Bool -> Bool -> Bool
 nand n m
     | n == True && m == True = False
     | otherwise = True
+
+--Função que retorna a quantidade de números iguais
+qtdNumerosIguais :: Int -> Int -> Int -> Int
+qtdNumerosIguais n m p 
+    |n == m && n == p && m == p = 3
+    |n == m || n == p || m == p = 2
+    |otherwise = 0
+    
