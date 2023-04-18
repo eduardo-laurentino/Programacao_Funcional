@@ -103,3 +103,29 @@ veja n
     |n < 100 = putStrLn"Menor que 100"    
     |n == 1000 = putStrLn"Igual a 1000"
     |n == 100 = putStrLn"Igual a 100"
+
+--Função que retorna o valor de uma venda
+venda :: Int -> Int
+vanda 0 = 5
+venda 1 = 6
+venda 2 = 4
+venda 3 = 8
+
+--Função que retorna o total de vendas
+totalVendas :: Int -> Int
+totalVendas n 
+    |n == 0 = 5
+    |otherwise = totalVendas(n-1)+venda(n)
+
+--Função que retorna a maior venda
+maiorVenda :: Int -> Int
+maiorVenda n
+    |n == 0 = venda 0
+    |venda n > maiorVenda(n-1) = venda n 
+    |otherwise = maiorVenda(n-1)
+
+--Função lógica nand
+nand :: Bool -> Bool -> Bool
+nand n m
+    | n == True && m == True = False
+    | otherwise = True
