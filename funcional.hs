@@ -51,13 +51,19 @@ par x
     |modulo x 2 == 0 = True
     |otherwise = False
 
+
 --Função que verifica se um número é primo
+aux :: Int -> Int -> Bool
+aux x y 
+    |y == 1 = True
+    |mod x y == 0 = False
+    |otherwise = aux x(y-1)
+
 primo :: Int -> Bool
 primo x 
-    |x < 2 = False
+    |x == 1 = False
     |x == 2 = True
-    |x > 2 && par x == True = False
-    |x > 2 && par x == False && modulo x 3 /= 0 && modulo x 5 /= 0 && modulo x 7 /= 0 = True
+    |otherwise = aux x(x-1)
 
 
 --Função que retorna se um número é coprimo
@@ -110,6 +116,10 @@ vanda 0 = 5
 venda 1 = 6
 venda 2 = 4
 venda 3 = 8
+venda 4 = 20
+venda 5 = 3
+venda 6 = 9
+venda 7 = 10
 
 --Função que retorna o total de vendas
 totalVendas :: Int -> Int
@@ -136,4 +146,29 @@ qtdNumerosIguais n m p
     |n == m && n == p && m == p = 3
     |n == m || n == p || m == p = 2
     |otherwise = 0
-    
+
+--Função que verifica se os números são primos gêmeos
+primosGemeos :: Int -> Int -> Bool
+primosGemeos x y 
+    |x - y == 2 || x - y == -2 && primo(x) == True && primo(y) == True = True
+    |otherwise = False
+
+--Função que verifica se um número pertence a um par de primos gêmeos
+pertencePrimosGemeos :: Int -> Bool
+pertencePrimosGemeos x 
+    |primo(x+2) || primo(x-2) && primo(x) == True = True
+    |otherwise = False
+
+--Função que retorna a quantidade de pares primos gêmeos
+contaPrimosGemeos :: Int -> Int
+contaPrimosGemeos x 
+    |x < 3 = 0
+    |primosGemeos(x - 2) x = 1 + contaPrimosGemeos(x-1)
+    |otherwise = contaPrimosGemeos(x-1)
+
+--Função que retorna a soma dos pares primos gêmeos
+somaParGemeos :: Int -> Int
+somaParGemeos x 
+    |x < 3 = 0
+    |primosGemeos(x - 2) x = x + (x - 2) + somaParGemeos(x-1)
+    |otherwise = somaParGemeos(x-1)
