@@ -2,7 +2,6 @@
 soma :: Int -> Int -> Int
 soma x y = x + y
 
-
 --Função que gera o fatorial de um número
 fat :: Int -> Int
 fat x 
@@ -10,6 +9,12 @@ fat x
     |x == 1 = 1
     |x == 2 = 2
     |otherwise = x*fat(x-1)
+
+--Função que retorna a soma dos fatoriais
+somaFat :: Int -> Int
+somaFat x 
+    |x == 0 = 1
+    |otherwise = somaFat(x-1) + fat(x)
 
 --Função que retorna a média entre dois números
 media :: Double -> Double -> Double
@@ -172,3 +177,33 @@ somaParGemeos x
     |x < 3 = 0
     |primosGemeos(x - 2) x = x + (x - 2) + somaParGemeos(x-1)
     |otherwise = somaParGemeos(x-1)
+
+--Função que retorna se um número é impar
+impar :: Int -> Bool
+impar x 
+    |modulo x 2 == 0 = False
+    |otherwise = True
+
+--Função que soma os algarismos pares de um número
+somaAlgarismosPar :: Int -> Int
+somaAlgarismosPar x 
+    |x < 10 && par(x) = x
+    |x < 10 && not (par(x)) = 0
+    |par(modulo x 10) = (modulo x 10) + somaAlgarismosPar(div x 10) 
+    |otherwise = somaAlgarismosPar(div x 10)
+
+--Função que multiplica os algarismos primos de um número
+multAlgarismosPrimo :: Int -> Int
+multAlgarismosPrimo x 
+    |x < 10 && primo x = x 
+    |x < 10 && not(primo x) = 1
+    |primo(modulo x 10) = (modulo x 10) * multAlgarismosPrimo(div x 10)
+    |otherwise = multAlgarismosPrimo(div x 10)
+
+--Função que conta os algarismos primos de um número
+contaAlgarismosPrimos :: Int -> Int
+contaAlgarismosPrimos x 
+    |x < 10 && primo x = 1
+    |x < 10 && not(primo x) = 0
+    |primo(modulo x 10) = (modulo x 10) + contaAlgarismosPrimos(div x 10)
+    |otherwise = contaAlgarismosPrimos(div x 10)
