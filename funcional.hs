@@ -205,5 +205,15 @@ contaAlgarismosPrimos :: Int -> Int
 contaAlgarismosPrimos x 
     |x < 10 && primo x = 1
     |x < 10 && not(primo x) = 0
-    |primo(modulo x 10) = (modulo x 10) + contaAlgarismosPrimos(div x 10)
+    |primo(modulo x 10) = 1 + contaAlgarismosPrimos(div x 10)
     |otherwise = contaAlgarismosPrimos(div x 10)
+
+--Função que retorna o enésimo primo da sequência de fibonacci
+auxEnesimoFibonacci::Int->Int->Int->Int
+auxEnesimoFibonacci n p s
+    |(n==1) && primo s = s
+    |primo s = auxEnesimoFibonacci (n-1) s (p+s)
+    |otherwise= auxEnesimoFibonacci n s (p+s)
+
+enesimoPrimoFibonacci::Int->Int
+enesimoPrimoFibonacci n = auxEnesimoFibonacci n 1 1
