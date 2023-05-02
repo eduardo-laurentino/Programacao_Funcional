@@ -107,7 +107,7 @@ potencia x y
     |otherwise = x ^ y
 
 
-veja :: Int->IO ()
+veja :: Int -> IO ()
 veja n  
     |n > 1000 = putStrLn"Maior que 1000"
     |n > 100 && n < 1000 = putStrLn"Entre 100 e 1000"
@@ -117,33 +117,56 @@ veja n
 
 --Função que retorna o valor de uma venda
 venda :: Int -> Int
-vanda 0 = 5
-venda 1 = 6
+venda 1 = 0
 venda 2 = 4
 venda 3 = 8
 venda 4 = 20
 venda 5 = 3
 venda 6 = 9
 venda 7 = 10
+venda _ = 1
 
 --Função que retorna o total de vendas
 totalVendas :: Int -> Int
-totalVendas n 
-    |n == 0 = 5
-    |otherwise = totalVendas(n-1)+venda(n)
+totalVendas x 
+    |x == 0 = 5
+    |otherwise = totalVendas(x-1)+venda(x)
 
 --Função que retorna a maior venda
 maiorVenda :: Int -> Int
-maiorVenda n
-    |n == 0 = venda 0
-    |venda n > maiorVenda(n-1) = venda n 
-    |otherwise = maiorVenda(n-1)
+maiorVenda x
+    |x == 0 = 0
+    |venda x > maiorVenda(x-1) = venda x 
+    |otherwise = maiorVenda(x-1)
+
+--Função que retorna a semana sem vendas
+--Retorna 0 se todas semanas tivrem vendas
+--Se for informado uma semana que não está na lista vendas ela será considerada uma semana sem vendas
+semanaSemVenda :: Int -> Int
+semanaSemVenda x 
+    |x < 0 = 0
+    |venda x == 0 = x
+    |otherwise = semanaSemVenda(x-1)
+
+--Função que verifica se existe uma sem venda
+existeSemanaSemVenda :: Int -> Bool
+existeSemanaSemVenda x 
+    |x < 0 = False
+    |venda x == 0 = True
+    |otherwise = existeSemanaSemVenda(x-1)
+
+--Função que retorna a maior semana que teve a maior venda
+maiorSemanaMaiorVenda :: Int -> Int
+maiorSemanaMaiorVenda x 
+    |x == 0 = 0
+    |venda x > venda(maiorSemanaMaiorVenda(x-1)) = x 
+    |otherwise = maiorSemanaMaiorVenda(x-1)
 
 --Função lógica nand
 nand :: Bool -> Bool -> Bool
 nand n m
-    | n == True && m == True = False
-    | otherwise = True
+    |n == True && m == True = False
+    |otherwise = True
 
 --Função que retorna a quantidade de números iguais
 qtdNumerosIguais :: Int -> Int -> Int -> Int
@@ -217,3 +240,14 @@ auxEnesimoFibonacci n p s
 
 enesimoPrimoFibonacci::Int->Int
 enesimoPrimoFibonacci n = auxEnesimoFibonacci n 1 1
+
+--Função que retorna o número que gera o fatorial informado
+auxGeraFatorial :: Int -> Int -> Int
+auxGeraFatorial x y
+    |fat(y) == x = y
+    |otherwise = auxGeraFatorial(y+1, x)
+
+geraFatorial :: Int -> Int
+geraFatorial x 
+    |x == 1 = 1
+    |otherwise = auxGeraFatorial(2, x)
