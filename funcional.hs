@@ -49,6 +49,11 @@ qtdAlgarismos x
 modulo :: Int -> Int -> Int
 modulo x y = mod x y
 
+modulos :: Int -> Int -> Int
+modulos x y 
+    |x == y = 0
+    |x >= y = modulos(x-y) y
+    |otherwise = abs(x-y)   
 
 --Função que verifica se um número é par
 par :: Int -> Bool
@@ -238,16 +243,31 @@ auxEnesimoFibonacci n p s
     |primo s = auxEnesimoFibonacci (n-1) s (p+s)
     |otherwise= auxEnesimoFibonacci n s (p+s)
 
-enesimoPrimoFibonacci::Int->Int
+enesimoPrimoFibonacci::Int -> Int
 enesimoPrimoFibonacci n = auxEnesimoFibonacci n 1 1
 
 --Função que retorna o número que gera o fatorial informado
 auxGeraFatorial :: Int -> Int -> Int
-auxGeraFatorial x y
-    |fat(y) == x = y
-    |otherwise = auxGeraFatorial(y+1, x)
+auxGeraFatorial y x
+    |fat y == x = y
+    |otherwise = auxGeraFatorial (y+1) x
 
 geraFatorial :: Int -> Int
-geraFatorial x 
-    |x == 1 = 1
-    |otherwise = auxGeraFatorial(2, x)
+geraFatorial n 
+    |n == 1 = 1
+    |otherwise = auxGeraFatorial 2 n
+
+--Função que retorna se um número é perfeito ou não
+somaDivisores :: Int -> Int -> Int
+somaDivisores x y 
+    |y == 1 = 1
+    |modulo x y == 0 = y + somaDivisores x (y-1)
+    |otherwise = somaDivisores x (y-1)
+
+
+--Função que verifica se um número é perfeito
+perfeito :: Int -> Bool
+perfeito x 
+    |x == 1 = False
+    |somaDivisores x (x-1) == x = True
+    |otherwise = False
