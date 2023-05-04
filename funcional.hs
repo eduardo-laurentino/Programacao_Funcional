@@ -303,7 +303,7 @@ contaCatalan x
 --Função que soma a sequencia que aparece em um intervalo de catalan
 somaIntervaloCatalan :: Int -> Int -> Int
 somaIntervaloCatalan x y
-    |y == 0 = y
+    |y == 0 = 0
     |y == 1 = y+1
-    |pertenceCatalan y == True = y + somaIntervaloCatalan x (y-1)
+    |pertenceCatalan y == True && y >= x = y + somaIntervaloCatalan x (y-1)
     |otherwise = somaIntervaloCatalan x (y-1)

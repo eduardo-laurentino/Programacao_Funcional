@@ -31,6 +31,5 @@ somaIntervaloCatalan :: Int -> Int -> Int
 somaIntervaloCatalan x y
     |y == 0 = y
     |y == 1 = y+1
-    |pertenceCatalan y == True = y + somaIntervaloCatalan x (y-1)
+    |pertenceCatalan y == True && y >= x = y + somaIntervaloCatalan x (y-1)
     |otherwise = somaIntervaloCatalan x (y-1)
-    
