@@ -297,4 +297,10 @@ pertenceCatalan x
 contaCatalan :: Int -> Int
 contaCatalan x  
     |x == 0 = x
-    |otherwise = auxPertenceCatalan 0 x 
+    |pertenceCatalan x == True = 1 + contaCatalan(x-1) 
+    |otherwise = contaCatalan(x-1)
+
+--Função que soma a sequencia que aparece em um intervalo de catalan
+somaIntervaloCatalan :: Int -> Int -> Int
+somaIntervaloCatalan x y 
+    |
