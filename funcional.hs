@@ -271,3 +271,30 @@ perfeito x
     |x == 1 = False
     |somaDivisores x (x-1) == x = True
     |otherwise = False
+
+--Função que retorna o enésimo número da sequência de Catalan
+enesimoCatalan :: Int -> Int
+enesimoCatalan x
+    |x == 0 = 1
+    |otherwise = div(fat(2*x)) ((fat(x+1))*(fat(x)))
+
+--Função que verifica se um número pertence a sequência de Catalan
+auxPertenceCatalan :: Int -> Int -> Bool
+auxPertenceCatalan x y 
+    |y == 0 = True
+    |enesimoCatalan x == y = True
+    |enesimoCatalan x > y = False
+    |otherwise = auxPertenceCatalan (x+1) y
+
+
+pertenceCatalan :: Int -> Bool
+pertenceCatalan x  
+    |x == 0 = True
+    |otherwise = auxPertenceCatalan 0 x 
+
+--Função que conta os números da sequência de catalan abaixo de um determinado valor de entrada
+
+contaCatalan :: Int -> Int
+contaCatalan x  
+    |x == 0 = x
+    |otherwise = auxPertenceCatalan 0 x 
