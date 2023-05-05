@@ -6,8 +6,6 @@ soma x y = x + y
 fat :: Int -> Int
 fat x 
     |x == 0 = 1
-    |x == 1 = 1
-    |x == 2 = 2
     |otherwise = x*fat(x-1)
 
 --Função que retorna a soma dos fatoriais
@@ -52,8 +50,14 @@ modulo x y = mod x y
 modulos :: Int -> Int -> Int
 modulos x y 
     |x == y = 0
-    |x >= y = modulos(x-y) y
-    |otherwise = abs(x-y)   
+    |x > y = modulos(x-y) y
+    |otherwise = x
+
+--Função que retorna o valor de uma potência
+poten :: Int -> Int -> Int
+poten x y 
+    |y == 0 = 1
+    |otherwise = x*(poten x (y-1))
 
 --Função que verifica se um número é par
 par :: Int -> Bool
@@ -61,6 +65,13 @@ par x
     |modulo x 2 == 0 = True
     |otherwise = False
 
+--Função que retorna a divisão intira entre dois números
+divisao :: Int -> Int -> Int
+divisao x y 
+    |x < y = 0
+    |x == y = 1
+    |y == 1 = x 
+    |otherwise = 1 + divisao(x-y) y 
 
 --Função que verifica se um número é primo
 aux :: Int -> Int -> Bool
@@ -307,3 +318,46 @@ somaIntervaloCatalan x y
     |y == 1 = y+1
     |pertenceCatalan y == True && y >= x = y + somaIntervaloCatalan x (y-1)
     |otherwise = somaIntervaloCatalan x (y-1)
+
+--Função que retorna o produto dos números da sequẽncia de fibonacci até um X informado
+produtoFibonacci :: Int -> Int
+produtoFibonacci x 
+    |x == 1 = 1
+    |x == 2 = 1
+    |otherwise = fibonacci(x) * produtoFibonacci(x-1)
+
+--Função que retrna o enésimo número de uma PG
+-- a1 -> número inicial da PG
+-- q -> razão da PG
+-- n -> enésimo termo
+enesimoPg :: Int -> Int -> Int -> Int
+enesimoPg a1 q n 
+    |a1 == 0 = 0
+    |q == 0 = 0
+    |q == 1 = a1
+    |otherwise = a1 * q^(n-1)
+
+--Problema dos dias de coleta
+diaColeta :: Int -> Int
+diaColeta x 
+    |x == 1 = 7
+    |otherwise = diaColeta(x-1) + 7 * x
+
+--Conjectura de Goldbach - todo número par maior que 2 é a soma de dois números primos
+auxGoldbach :: Int -> Int -> (Int, Int)
+auxGoldbach x y 
+    |primo(y) == True && primo(x-y) == True = (y, (x-y))
+    |otherwise = auxGoldbach x (y+1)
+
+goldbach :: Int -> (Int, Int)
+goldbach x = auxGoldbach x 1
+
+--Função totiente de Euler -> é a contagem dos números cujo maior divisor comum com a entrada x é 1
+totiente :: Int -> Int -> Int
+totiente x y 
+    |y == 1 = 1
+    |coprimo x y y == True = 1 + totiente x (y-1)
+    |otherwise = totiente x (y-1)
+
+contTotiente :: Int -> Int
+contTotiente x = totiente x (x-1)
