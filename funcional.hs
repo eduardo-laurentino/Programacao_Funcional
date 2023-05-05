@@ -382,4 +382,6 @@ converteSegundos total = (horas, minutos, segundos)
         segundos = mod (mod total 3600) 60
     
 diferencaHora :: Hora -> Hora -> Hora
-diferencaHora hora1 hora2 = converteSegundos(totalSegundos(hora1)-totalSegundos(hora2))
+diferencaHora hora1 hora2
+    |totalSegundos(hora1) > totalSegundos(hora2) = converteSegundos (totalSegundos(hora1)-totalSegundos(hora2))
+    |otherwise = converteSegundos (totalSegundos(hora2)-totalSegundos(hora1))
