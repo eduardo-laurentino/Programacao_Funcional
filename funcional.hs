@@ -360,3 +360,26 @@ totiente x y
 
 contTotiente :: Int -> Int
 contTotiente x = totiente x (x-1)
+
+--              TIPOS ESTRUTURADOS
+--Função que valida a hora informada
+type Hora = (Int, Int, Int)
+valida :: Hora -> Bool
+valida (h, m, s)
+    |h < 0 || h > 23 = False
+    |m < 0 || m > 59 = False
+    |s < 0 || s > 59 = False
+    |otherwise = True
+
+totalSegundos :: Hora -> Int
+totalSegundos (h, m, s) = s + m*60 + h*60*60
+
+converteSegundos :: Int -> Hora
+converteSegundos total = (horas, minutos, segundos)
+    where
+        horas = div total 3600
+        minutos = div (mod total 3600) 60
+        segundos = mod (mod total 3600) 60
+    
+diferencaHora :: Hora -> Hora -> Hora
+diferencaHora hora1 hora2 = converteSegundos(totalSegundos(hora1)-totalSegundos(hora2))
