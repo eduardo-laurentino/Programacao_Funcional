@@ -300,7 +300,7 @@ auxPertenceCatalan x y
 
 pertenceCatalan :: Int -> Bool
 pertenceCatalan x  
-    |x == 0 = True
+    |x == 0 = False
     |otherwise = auxPertenceCatalan 0 x 
 
 --Função que conta os números da sequência de catalan abaixo de um determinado valor de entrada
@@ -314,8 +314,7 @@ contaCatalan x
 --Função que soma a sequencia que aparece em um intervalo de catalan
 somaIntervaloCatalan :: Int -> Int -> Int
 somaIntervaloCatalan x y
-    |y == 0 = 0
-    |y == 1 = y+1
+    |y == 1 = 2
     |pertenceCatalan y == True && y >= x = y + somaIntervaloCatalan x (y-1)
     |otherwise = somaIntervaloCatalan x (y-1)
 
@@ -329,7 +328,7 @@ produtoFibonacci x
 --Função que retrna o enésimo número de uma PG
 -- a1 -> número inicial da PG
 -- q -> razão da PG
--- n -> enésimo termo
+-- n -> enésimo termo da PG
 enesimoPg :: Int -> Int -> Int -> Int
 enesimoPg a1 q n 
     |a1 == 0 = 0
