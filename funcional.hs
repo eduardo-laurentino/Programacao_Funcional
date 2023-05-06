@@ -361,8 +361,9 @@ totiente x y
 contTotiente :: Int -> Int
 contTotiente x = totiente x (x-1)
 
---              TIPOS ESTRUTURADOS
+--              TIPOS ESTRUTURADOS N2
 --Função que valida a hora informada
+--Cria o tipo hora
 type Hora = (Int, Int, Int)
 valida :: Hora -> Bool
 valida (h, m, s)
@@ -371,17 +372,48 @@ valida (h, m, s)
     |s < 0 || s > 59 = False
     |otherwise = True
 
+--Função que calcula o total de segundos da hora informada
 totalSegundos :: Hora -> Int
 totalSegundos (h, m, s) = s + m*60 + h*60*60
 
+--Função que converte os segundos em horas
 converteSegundos :: Int -> Hora
 converteSegundos total = (horas, minutos, segundos)
     where
         horas = div total 3600
         minutos = div (mod total 3600) 60
         segundos = mod (mod total 3600) 60
-    
+
+--Função que calcula a diferença entre duas horas informadas  
 diferencaHora :: Hora -> Hora -> Hora
 diferencaHora hora1 hora2
     |totalSegundos(hora1) > totalSegundos(hora2) = converteSegundos (totalSegundos(hora1)-totalSegundos(hora2))
     |otherwise = converteSegundos (totalSegundos(hora2)-totalSegundos(hora1))
+
+--Função que retorna verdadeiro se o ano informado é bissexto e falso se não for bissexto
+anoBissexto :: Int -> Bool
+anoBissexto ano = (mod ano 4 == 0) && not (mod ano 100 == 0) || (mod ano 400 == 0)
+
+--Cria o tipo data
+type Data = (Int, Int, Int)
+--Função que retorna verdadeiro se a data informada for válida e falso se a data for inválida
+validaData :: Data -> Bool
+validaData (dia, mes, ano)
+    |dia < 1 || dia > 31 = False
+    |mes < 1 || mes > 12 = False
+    |mes == 4 || mes == 6 || mes == 9 || mes == 11 && dia > 30 = False
+    |mes == 2 && not (anoBissexto(ano)) && dia > 28 = False
+    |otherwise = True
+
+--Cria o tipo cliente
+type Cliente = (String, Data, String)
+idadeCliente :: Cliente -> Int
+idadeCliente (_, (dia, mes, ano), _) = dia
+
+
+--                      LISTAS
+
+--Função que soma os valores de uma lista
+somaLista :: [Int] -> Int
+somaLista [] = 0
+somaLista(cabeca:calda) = cabeca + somaLista calda
