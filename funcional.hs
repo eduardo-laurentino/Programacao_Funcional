@@ -65,6 +65,10 @@ par x
     |modulo x 2 == 0 = True
     |otherwise = False
 
+--Função que calcula o valor absoluto de um  número inteiro
+valorAbsoluto :: Int -> Int
+valorAbsoluto x = if x >= 0 then x else -x 
+
 --Função que retorna a divisão intira entre dois números
 divisao :: Int -> Int -> Int
 divisao x y 
@@ -361,6 +365,13 @@ totiente x y
 contTotiente :: Int -> Int
 contTotiente x = totiente x (x-1)
 
+--Função que verifica o maior entre três números
+max3 :: Int -> Int -> Int -> Int
+max3 numero1 numero2 numero3 = if numero1 > numero2 && numero1 > numero3
+    then numero1
+    else if numero2 > numero3 then numero2
+    else numero3
+
 --              TIPOS ESTRUTURADOS N2
 --Função que valida a hora informada
 --Cria o tipo hora
@@ -405,11 +416,6 @@ validaData (dia, mes, ano)
     |mes == 2 && not (anoBissexto(ano)) && dia > 28 = False
     |otherwise = True
 
---Cria o tipo cliente
-type Cliente = (String, Data, String)
-idadeCliente :: Cliente -> Int
-idadeCliente (_, (dia, mes, ano), _) = dia
-
 
 --                      LISTAS
 
@@ -417,3 +423,14 @@ idadeCliente (_, (dia, mes, ano), _) = dia
 somaLista :: [Int] -> Int
 somaLista [] = 0
 somaLista(cabeca:calda) = cabeca + somaLista calda
+
+--Função que inverte uma sequência de caracteres
+inverte :: [Char] -> [Char]
+inverte [] = []
+inverte (a:as) = inverte as ++ [a]
+
+--Função que replica um caractere inserido de acordo com o valor informado
+replicaChar :: Char -> Int -> [Char]
+replicaChar caractere numero 
+    |numero == 0 = []
+    |otherwise = caractere: replicaChar caractere(numero-1)
