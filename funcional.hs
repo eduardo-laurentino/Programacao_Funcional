@@ -454,3 +454,15 @@ replicaChar :: Char -> Int -> [Char]
 replicaChar caractere numero 
     |numero == 0 = []
     |otherwise = caractere: replicaChar caractere(numero-1)
+
+--Função que recebe dois números inseridos pelo terminal e retorna a soma
+main :: IO ()
+main = do
+putStrLn "Digite um numero:"
+s1 <- getLine
+putStrLn "Digite outro numero:"
+s2 <- getLine
+putStr "Soma dos numeros digitados: "
+let n1 = read s1 :: Double
+let n2 = read s2 :: Double
+putStrLn (show (n1 + n2))
