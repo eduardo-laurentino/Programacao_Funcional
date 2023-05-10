@@ -379,6 +379,19 @@ max3 numero1 numero2 numero3 = if numero1 > numero2 && numero1 > numero3
     else if numero2 > numero3 then numero2
     else numero3
 
+--Reursividade mútua
+ePar :: Int -> Bool
+ePar x 
+    |x == 0 = True
+    |x > 0 = eImpar(x-1)
+    |otherwise = ePar(-x)
+
+eImpar :: Int -> Bool
+eImpar x 
+    |x == 0 = False
+    |x > 0 = par (x-1)
+    |otherwise = impar (-x)
+
 --              TIPOS ESTRUTURADOS N2
 --Função que valida a hora informada
 --Cria o tipo hora
