@@ -69,7 +69,7 @@ par x
 valorAbsoluto :: Int -> Int
 valorAbsoluto x = if x >= 0 then x else -x 
 
---Função que retorna a divisão intira entre dois números
+--Função que retorna a divisão inteira entre dois números
 divisao :: Int -> Int -> Int
 divisao x y 
     |x < y = 0
@@ -448,6 +448,38 @@ somaLista(cabeca:calda) = cabeca + somaLista calda
 inverte :: [Char] -> [Char]
 inverte [] = []
 inverte (a:as) = inverte as ++ [a]
+
+--                  Expressões ZF
+--Função que recebe uma lista retorna outra lista de números pares multiplicados por 2
+geradores :: [Int] -> [Int]
+geradores x = [2*a | a <- x, mod a 2 == 0]
+
+--Função que recebe uma tupla e soma os valores de cada tupla
+somaTupla :: [(Int, Int)] -> [Int]
+somaTupla pares = [a + b | (a, b) <- pares]
+
+geradorDuplo :: [Int] -> [Int] -> [(Int, Int)]
+geradorDuplo x y = [(a, b) | a <- x, b <- y]
+
+--Função que retorna uma lista de divisores de um número
+zfDivisores :: Int -> [Int]
+zfDivisores x = [a | a <- [1..(x-1)], mod x a == 0]
+
+--Função que retorna uma lista de números perfeitos
+zfPerfeitos :: Int -> Bool
+zfPerfeitos n = sum(zfDivisores n) == n
+
+perfect :: Int -> [Int]
+perfect n = [x | x <- [1..n], zfPerfeitos x]
+
+--Função que concatena listas
+zfConcatena :: [[Int]] -> [Int]
+zfConcatena x = [x | sub <- x, x <-sub]
+
+--método de ordenação Quick Sort
+quickSort :: [Int] -> [Int]
+quickSort [] = []
+quickSort (a:x) = quickSort[y|y <- x,y <= a] ++[a]++ quickSort[y|y <- x,y > a]
 
 --Função que replica um caractere inserido de acordo com o valor informado
 replicaChar :: Char -> Int -> [Char]
