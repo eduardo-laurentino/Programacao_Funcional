@@ -442,12 +442,29 @@ validaData (dia, mes, ano)
 --Função que soma os valores de uma lista
 somaLista :: [Int] -> Int
 somaLista [] = 0
-somaLista(cabeca:calda) = cabeca + somaLista calda
+somaLista(cabeca:cauda) = cabeca + somaLista cauda
 
 --Função que inverte uma sequência de caracteres
 inverte :: [Char] -> [Char]
 inverte [] = []
 inverte (a:as) = inverte as ++ [a]
+
+--Função que verifica se duas lista são iguis
+listasIguais :: [Int] -> [Int] -> Bool
+listasIguais x y 
+    |[x] == [y] = True
+    |otherwise = False
+
+--Função que ordena uma lista de inteiros
+ordena :: [Int] -> [Int]
+ordena [] = []
+ordena (x: xs) = insere x (ordena xs)
+
+insere :: Int -> [Int] -> [Int]
+insere x[] = x:[]
+insere x (cabeca:cauda)
+    |x <= cabeca = x:cabeca:cauda
+    |otherwise = cabeca:(insere x cauda)
 
 --                  Expressões ZF
 --Função que recebe uma lista retorna outra lista de números pares multiplicados por 2
