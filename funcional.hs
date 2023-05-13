@@ -499,6 +499,11 @@ replicaChar caractere numero
     |numero == 0 = []
     |otherwise = caractere: replicaChar caractere(numero-1)
 
+--método de ordenação Quick Sort
+quickSort :: [Int] -> [Int]
+quickSort [] = []
+quickSort (a:x) = quickSort [y | y <- x, y <= a] ++[a]++ quickSort [y | y <- x, y > a]
+
 --Função que recebe dois números inseridos pelo terminal e retorna a soma
 main :: IO ()
 main = do
@@ -510,8 +515,3 @@ putStr "Soma dos numeros digitados: "
 let n1 = read s1 :: Double
 let n2 = read s2 :: Double
 putStrLn (show (n1 + n2))
-
---método de ordenação Quick Sort
-quickSort :: [Int] -> [Int]
-quickSort [] = []
-quickSort (a:x) = quickSort[y|y <- x,y <= a] ++[a]++ quickSort[y|y <- x,y > a]
