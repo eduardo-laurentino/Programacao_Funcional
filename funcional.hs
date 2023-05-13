@@ -493,11 +493,6 @@ perfect n = [x | x <- [1..n], zfPerfeitos x]
 zfConcatena :: [[Int]] -> [Int]
 zfConcatena x = [x | sub <- x, x <-sub]
 
---método de ordenação Quick Sort
-quickSort :: [Int] -> [Int]
-quickSort [] = []
-quickSort (a:x) = quickSort[y|y <- x,y <= a] ++[a]++ quickSort[y|y <- x,y > a]
-
 --Função que replica um caractere inserido de acordo com o valor informado
 replicaChar :: Char -> Int -> [Char]
 replicaChar caractere numero 
@@ -515,3 +510,8 @@ putStr "Soma dos numeros digitados: "
 let n1 = read s1 :: Double
 let n2 = read s2 :: Double
 putStrLn (show (n1 + n2))
+
+--método de ordenação Quick Sort
+quickSort :: [Int] -> [Int]
+quickSort [] = []
+quickSort (a:x) = quickSort[y|y <- x,y <= a] ++[a]++ quickSort[y|y <- x,y > a]
