@@ -30,6 +30,19 @@ fibonacci x
     |x == 2 = 1
     |otherwise =  fibonacci(x-1) + fibonacci(x-2)
 
+--Função que verifica se um número pertence a sequência de fibonacci
+auxFibonacci :: Int -> Int -> Bool
+auxFibonacci x y
+    |x == 0 || x == 1 = True
+    |fibonacci y == x = True
+    |fibonacci y > x = False
+    |otherwise = auxFibonacci x (y+1)
+
+pertenceFibonacci :: Int -> Bool
+pertenceFibonacci x 
+    |x == 0 = True
+    |otherwise = auxFibonacci x 0
+
 --Função que retorna o menor entre dois números
 menorDeDois :: Int -> Int -> String
 menorDeDois x y
@@ -493,6 +506,34 @@ perfect n = [x | x <- [1..n], zfPerfeitos x]
 zfConcatena :: [[Int]] -> [Int]
 zfConcatena x = [x | sub <- x, x <-sub]
 
+--Função que retorna os números ímpares entre 1 e 100
+zfImpar = [x | x <- [2 .. 99], impar x]
+
+--Função que retorna os números pares entre 10 e 100
+zfPar = [x | x <- [11 .. 99], par x]
+
+--Função que retorna os números ímpares entre um 1 e X
+imparN :: Int -> [Int]
+imparN x = [x | x <- [1 .. x], impar x]
+
+--Função que retorna os números entre 1 e X que são múltiplos de 3 e 5
+zfMultiplos :: Int -> [Int]
+zfMultiplos x = [x | x <- [1..x], mod x 3 == 0 && mod x 5 == 0]
+
+--Função que retorna uma lista de tuplas de 1 a x contendo x e o seu respectivo quadrado
+tuplaQuadrado :: Int -> [(Int, Int)]
+tuplaQuadrado x = [(x, x*x) |x <- [1..x]]
+--Função que retorna tuplas com índices de uma matriz 3 x 4
+tuplaMatriz = [(x, y) | x <- [0..3], y <- [0..4]]
+
+--Função que retorna uma matriz n x m
+matriz :: Int -> Int -> [(Int, Int)]
+matriz n m = [(n, m) | n <- [0..n], m <- [0..m]]
+
+--Função que retorna uma lista dos n primeiros números da sequência de fibonacci
+listaFibonacci :: Int -> [Int]
+listaFibonacci x = [x | x <- [0..x], pertenceFibonacci x == True]
+
 --Função que replica um caractere inserido de acordo com o valor informado
 replicaChar :: Char -> Int -> [Char]
 replicaChar caractere numero 
@@ -515,3 +556,4 @@ putStr "Soma dos numeros digitados: "
 let n1 = read s1 :: Double
 let n2 = read s2 :: Double
 putStrLn (show (n1 + n2))
+
