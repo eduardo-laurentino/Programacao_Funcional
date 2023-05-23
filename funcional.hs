@@ -530,9 +530,13 @@ tuplaMatriz = [(x, y) | x <- [0..3], y <- [0..4]]
 matriz :: Int -> Int -> [(Int, Int)]
 matriz n m = [(n, m) | n <- [0..n], m <- [0..m]]
 
---Função que retorna uma lista dos n primeiros números da sequência de fibonacci
+--Função que retorna uma lista da sequência de fibonacci até n
 listaFibonacci :: Int -> [Int]
 listaFibonacci x = [x | x <- [0..x], pertenceFibonacci x == True]
+
+--Função que retorna uma lista dos n primeiros números da sequência de fibonacci
+primeiroFibonacci :: Int -> [Int]
+primeiroFibonacci x = [fibonacci x | x <- [0..x]]
 
 --Função que replica um caractere inserido de acordo com o valor informado
 replicaChar :: Char -> Int -> [Char]
