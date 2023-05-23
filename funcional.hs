@@ -544,6 +544,16 @@ replicaChar caractere numero
     |numero == 0 = []
     |otherwise = caractere: replicaChar caractere(numero-1)
 
+--Função que resolve o problema da torre de Hanoi
+hanoi :: Int -> Int -> Int -> Int -> [String]
+hanoi discos origem auxiliar destino
+    |discos == 0 = []
+    |discos == 1 = [show(origem) ++ "->" ++ show(destino)]
+    |otherwise = ch1 ++ [show(origem) ++ "->" ++ show(destino)] ++ ch2
+        where
+            ch1 = hanoi(discos-1) origem destino auxiliar
+            ch2 = hanoi(discos-1) auxiliar origem destino
+
 --método de ordenação Quick Sort
 quickSort :: [Int] -> [Int]
 quickSort [] = []
