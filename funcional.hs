@@ -458,6 +458,32 @@ somaLista :: [Int] -> Int
 somaLista [] = 0
 somaLista(cabeca:cauda) = cabeca + somaLista cauda
 
+--Função que verifica se um número pertence a uma lista
+pertenceLista :: [Int] -> Int -> Bool
+pertenceLista lista numero
+    |lista == [] = False
+    |head lista == numero = True
+    |otherwise = pertenceLista(tail lista) numero
+
+--Função que retorna o maior número de uma lista
+auxMaiorNumLista :: [Int] -> Int -> Int
+auxMaiorNumLista lista aux
+    |tail lista == [] = aux
+    |head lista > aux = auxMaiorNumLista (tail lista) (head lista)
+    |otherwise = auxMaiorNumLista (tail lista) aux
+
+maiorNumLista :: [Int] -> Int
+maiorNumLista lista
+    |lista == [] = 0
+    |otherwise = auxMaiorNumLista lista 0
+
+--Função que recebe um número e retorna o enésimo número da lista
+enesimoNumLista :: [Int] -> Int -> Int
+enesimoNumLista lista numero
+    |lista == [] = 0
+    |length lista < numero = 0
+    |otherwise = (lista !! numero)
+
 --Função que inverte uma sequência de caracteres
 inverte :: [Char] -> [Char]
 inverte [] = []
