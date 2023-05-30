@@ -1,3 +1,4 @@
+import Data.Char
 --Função para somar dois números
 soma :: Int -> Int -> Int
 soma x y = x + y
@@ -553,6 +554,28 @@ hanoi discos origem auxiliar destino
         where
             ch1 = hanoi(discos-1) origem destino auxiliar
             ch2 = hanoi(discos-1) auxiliar origem destino
+
+--Função que elimina os caracteres repitidos de uma string
+compressao :: String -> String -> String
+compressao lista listaFinal
+    |lista == [] = listaFinal
+    |listaFinal == [] = compressao (tail lista) [head lista]
+    |head lista == last listaFinal = compressao (tail lista) listaFinal
+    |otherwise = compressao (tail lista) (listaFinal ++ [head lista])
+
+--Função que codifica uma mensagem pelo método da cifra de cesar
+codifica :: Int -> Char -> Char
+codifica x c
+    |(ord c) + x < 65 = chr (90 + (ord c) - 64 + x)
+    |(ord c) + x > 90 = chr (64 + (ord c) - 90 + x)
+    |ord c >= 64 && ord c < 91 = chr ((ord c) + x)
+    |otherwise = c
+
+cifraCesar :: Int -> String -> String
+cifraCesar x mensagem
+    |mensagem == "" = ""
+    |x == 0 = mensagem
+    |otherwise = codifica x (head mensagem) : cifraCesar x (tail mensagem)
 
 --método de ordenação Quick Sort
 quickSort :: [Int] -> [Int]
