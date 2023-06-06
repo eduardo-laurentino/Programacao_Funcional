@@ -546,12 +546,15 @@ contar c str
    |c == (head str) = 1+ contar c (tail str)
    |otherwise = contar c (tail str)
 
-analise :: String -> [(Char,Int)]
-analise (cabeca:cauda)
-    |analise == "" = []
-    |otherwise = (cabeca contar cabeca (cabeca:cauda))
+--Função que retorna uma lista com as palavras que tenha tamanho maior ou igual ao inteiro informado
+auxiliarFiltro :: Int -> [String] -> [String] -> [String]
+auxiliarFiltro tamanho lista listaFinal
+    |lista == [] = listaFinal
+    |length (head lista) >= tamanho = auxiliarFiltro tamanho (tail lista) (head lista:listaFinal)
+    |otherwise = auxiliarFiltro tamanho (tail lista) listaFinal
 
-
+filtroTamanho :: Int -> [String] -> [String]
+filtroTamanho tamanho lista = auxiliarFiltro tamanho lista []
 
 --Função que converte uma string binária em string hexadecimal
 conv "0000" = "0"
