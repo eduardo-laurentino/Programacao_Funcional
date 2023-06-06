@@ -519,6 +519,7 @@ remove num aux novalst lst
     | num == aux = reverse(novalst) ++ (tail lst)
     | otherwise = remove num (aux+1) ((head lst):novalst) (tail lst)
 
+--Função que verifica se uma frase é palíndromo
 inverteString :: String -> String
 inverteString "" = ""
 inverteString (a:as) = inverteString as ++ [a]
@@ -528,6 +529,7 @@ palindromo nome
     |nome == "" = False
     |nome == (inverteString nome) = True
     |otherwise = False
+
 
 --                  Expressões ZF
 --Função que recebe uma lista retorna outra lista de números pares multiplicados por 2
