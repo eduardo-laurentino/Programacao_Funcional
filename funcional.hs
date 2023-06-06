@@ -530,6 +530,21 @@ palindromo nome
     |nome == (inverteString nome) = True
     |otherwise = False
 
+--Função que elimina uma sequência de caracteres repetidos de uma string
+eliminaCaractere :: String -> String
+eliminaCaractere frase = elimina frase ""
+
+elimina :: String->String->String
+elimina lista final
+   |lista=="" = final
+   |final=="" = elimina (tail lista) [head lista]
+   |head lista == last final = elimina (tail lista) final
+   |otherwise = elimina (tail lista) (final++[head lista])
+
+--Função que duplica os elementos de uma lista
+duplicaLista :: [Int] -> [Int]
+duplicaLista [] = []
+duplicaLista(cabeca:cauda) = cabeca:cabeca: duplicaLista(cauda)
 
 --                  Expressões ZF
 --Função que recebe uma lista retorna outra lista de números pares multiplicados por 2
