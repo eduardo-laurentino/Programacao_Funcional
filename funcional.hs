@@ -530,6 +530,53 @@ palindromo nome
     |nome == (inverteString nome) = True
     |otherwise = False
 
+--Função que conta a quantidade de caracteres de uma frase
+contaCaractere :: String -> Int
+contaCaractere frase = auxcontaCaractere frase 0
+
+auxcontaCaractere :: String -> Int -> Int
+auxcontaCaractere frase x 
+    |frase == "" = x 
+    |otherwise = auxcontaCaractere (tail frase) (x+1)
+
+--Função que conta as ocorrências de um determinado caractere em uma string
+contar :: Char->String->Int
+contar c str
+   |str == "" = 0
+   |c == (head str) = 1+ contar c (tail str)
+   |otherwise = contar c (tail str)
+
+analise :: String -> [(Char,Int)]
+analise (cabeca:cauda)
+    |analise == "" = []
+    |otherwise = (cabeca contar cabeca (cabeca:cauda))
+
+
+
+--Função que converte uma string binária em string hexadecimal
+conv "0000" = "0"
+conv "0001" = "1"
+conv "0010" = "2"
+conv "0011" = "3"
+conv "0100" = "4"
+conv "0101" = "5"
+conv "0110" = "6"
+conv "0111" = "7"
+conv "1000" = "8"
+conv "1001" = "9"
+conv "1010" = "A"
+conv "1011" = "B"
+conv "1100" = "C"
+conv "1101" = "D"
+conv "1110" = "E"
+conv "1111" = "F"
+
+bin2hex::String->String
+bin2hex s
+   |s=="" = ""
+   |mod (length s) 4 /=0 = bin2hex((replicate (4-(mod (length s) 4)) '0') ++ s)
+   |otherwise = conv (take 4 s) ++ bin2hex(drop 4 s)
+
 --Função que elimina uma sequência de caracteres repetidos de uma string
 eliminaCaractere :: String -> String
 eliminaCaractere frase = elimina frase ""
