@@ -506,6 +506,19 @@ insere x (cabeca:cauda)
     |x <= cabeca = x:cabeca:cauda
     |otherwise = cabeca:(insere x cauda)
 
+--Função que remove o enésimo número de uma lista
+removeEnesimoLista :: Int -> [Int] -> [Int]
+removeEnesimoLista enesimo lista
+    |lista == [] = []
+    |otherwise = remove enesimo 0 [] lista
+    
+remove :: Int -> Int -> [Int] -> [Int] -> [Int]
+remove num aux novalst lst
+    | lst == [] = []
+    | num == aux = reverse(novalst) ++ (tail lst)
+    | otherwise = remove num (aux+1) ((head lst):novalst) (tail lst)
+
+
 --                  Expressões ZF
 --Função que recebe uma lista retorna outra lista de números pares multiplicados por 2
 geradores :: [Int] -> [Int]
