@@ -1,4 +1,5 @@
-import Data.Char
+import Data.Char 
+import Data.String
 --Função para somar dois números
 soma :: Int -> Int -> Int
 soma x y = x + y
@@ -518,6 +519,15 @@ remove num aux novalst lst
     | num == aux = reverse(novalst) ++ (tail lst)
     | otherwise = remove num (aux+1) ((head lst):novalst) (tail lst)
 
+inverteString :: String -> String
+inverteString "" = ""
+inverteString (a:as) = inverte as ++ [a]
+
+palindromo :: String -> Bool
+palindromo nome 
+    |nome == "" = False
+    |nome == (inverteString nome) = True
+    |otherwise = False
 
 --                  Expressões ZF
 --Função que recebe uma lista retorna outra lista de números pares multiplicados por 2
