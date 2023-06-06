@@ -521,7 +521,7 @@ remove num aux novalst lst
 
 inverteString :: String -> String
 inverteString "" = ""
-inverteString (a:as) = inverte as ++ [a]
+inverteString (a:as) = inverteString as ++ [a]
 
 palindromo :: String -> Bool
 palindromo nome 
