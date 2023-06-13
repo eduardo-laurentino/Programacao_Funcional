@@ -556,6 +556,12 @@ auxiliarFiltro tamanho lista listaFinal
 filtroTamanho :: Int -> [String] -> [String]
 filtroTamanho tamanho lista = auxiliarFiltro tamanho lista []
 
+retornaPalavra :: String -> String -> String
+retornaPalavra texto novoTexto
+    |texto == [] = []
+    |head texto == ',' || head texto == ' ' = reverse(novoTexto)
+    |otherwise = retornaPalavra( tail texto) (head texto:novoTexto)
+
 --Função que converte uma string binária em string hexadecimal
 conv "0000" = "0"
 conv "0001" = "1"
