@@ -704,6 +704,22 @@ quickSort :: [Int] -> [Int]
 quickSort [] = []
 quickSort (a:x) = quickSort [y | y <- x, y <= a] ++[a]++ quickSort [y | y <- x, y > a]
 
+--Função que comprime e conta os caracteres repetidos de uma string
+compressao :: String -> String
+compressao "" = ""
+compressao (cabeca:cauda)
+    |cauda == [] = [cabeca]
+    |cabeca /= head cauda = cabeca:(compressao cauda)
+    |otherwise = cabeca:(show cont)++(compressao (drop cont(cabeca:cauda)))
+    where
+        cont = contaiguaisinicio cabeca (cabeca:cauda)
+
+contaiguaisinicio :: Char -> String -> Int
+contaiguaisinicio _ [] = 0
+contaiguaisinicio c (cabeca:cauda)
+    |c == cabeca = 1+ contaiguaisinicio c cauda
+    |otherwise = 0
+
 --Função que recebe dois números inseridos pelo terminal e retorna a soma
 main :: IO ()
 main = do
