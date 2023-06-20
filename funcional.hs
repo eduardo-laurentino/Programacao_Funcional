@@ -678,12 +678,12 @@ hanoi discos origem auxiliar destino
             ch2 = hanoi(discos-1) auxiliar origem destino
 
 --Função que elimina os caracteres repitidos de uma string
-compressao :: String -> String -> String
-compressao lista listaFinal
+compressaoElimina :: String -> String -> String
+compressaoElimina lista listaFinal
     |lista == [] = listaFinal
-    |listaFinal == [] = compressao (tail lista) [head lista]
-    |head lista == last listaFinal = compressao (tail lista) listaFinal
-    |otherwise = compressao (tail lista) (listaFinal ++ [head lista])
+    |listaFinal == [] = compressaoElimina (tail lista) [head lista]
+    |head lista == last listaFinal = compressaoElimina (tail lista) listaFinal
+    |otherwise = compressaoElimina (tail lista) (listaFinal ++ [head lista])
 
 --Função que codifica uma mensagem pelo método da cifra de cesar
 codifica :: Int -> Char -> Char
@@ -719,6 +719,10 @@ contaiguaisinicio _ [] = 0
 contaiguaisinicio c (cabeca:cauda)
     |c == cabeca = 1+ contaiguaisinicio c cauda
     |otherwise = 0
+
+--                  POLIMORFISMO
+filtroLista :: Int -> [[a]] -> [[a]]
+filtroLista n lista = [p | p <- lista, length p >= n]
 
 --Função que recebe dois números inseridos pelo terminal e retorna a soma
 main :: IO ()
