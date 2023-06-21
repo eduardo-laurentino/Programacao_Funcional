@@ -550,7 +550,7 @@ contar c str
 auxiliarFiltro :: Int -> [String] -> [String] -> [String]
 auxiliarFiltro tamanho lista listaFinal
     |lista == [] = listaFinal
-    |length (head lista) >= tamanho = auxiliarFiltro tamanho (tail lista) (head lista:listaFinal)
+    |length (head lista) >= tamanho = auxiliarFiltro tamanho (tail lista) (reverse(head lista:listaFinal))
     |otherwise = auxiliarFiltro tamanho (tail lista) listaFinal
 
 filtroTamanho :: Int -> [String] -> [String]
@@ -719,6 +719,40 @@ contaiguaisinicio _ [] = 0
 contaiguaisinicio c (cabeca:cauda)
     |c == cabeca = 1+ contaiguaisinicio c cauda
     |otherwise = 0
+
+-- Funçao que conta a quantidade de repetições de uma palavra em uma lista
+entradaDados :: [String] -> [(String, Int)]
+entradaDados palavra = processamento palavra []
+
+processamento :: [String] -> [String] -> [(String, Int)]
+processamento palavra aux
+    |palavra == [] = []
+    |pertenceListaDados (head palavra) aux == True = processamento (tail palavra) aux
+    |otherwise = auxProcessamento (head palavra) palavra 0 ++ processamento (tail palavra)(head palavra:aux)
+
+auxProcessamento :: String -> [String] -> Int -> [(String, Int)]
+auxProcessamento palavra listaPalavra aux
+    |listaPalavra == [] = [(palavra, aux)]
+    |head listaPalavra == palavra = auxProcessamento palavra (tail listaPalavra) (aux+1)
+    |otherwise = auxProcessamento palavra (tail listaPalavra) aux
+
+pertenceListaDados :: String -> [String] -> Bool
+pertenceListaDados palavra listaPalavra
+    |listaPalavra == [] = False
+    |palavra == head listaPalavra = True
+    |otherwise = pertenceListaDados palavra (tail listaPalavra)
+
+-- Função que recebe um texto e conta as palavras repetidas do texto
+dados :: String -> [(String, Int)]
+dados lista 
+    |lista == [] = []
+    |otherwise = processamento (analise lista "" []) []
+
+analise :: String -> String -> [String] -> [String]
+analise frase palavra listaVazia
+    |frase == [] = reverse(reverse(palavra):listaVazia)
+    |head frase == ' ' = analise (tail frase) "" (reverse(palavra):listaVazia)
+    |otherwise = analise (tail frase) (head frase:palavra) listaVazia
 
 --                  POLIMORFISMO
 filtroLista :: Int -> [[a]] -> [[a]]
