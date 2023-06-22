@@ -562,6 +562,12 @@ retornaPalavra texto novoTexto
     |head texto == ',' || head texto == ' ' = reverse(novoTexto)
     |otherwise = retornaPalavra( tail texto) (head texto:novoTexto)
 
+--Função descompcta  -> EX: [('a', 4)] -> "aaaa"
+descompactar :: Eq a => [(a, Int)] -> [a]
+descompactar lista
+    |lista == [] = []
+    |otherwise = replicate (snd (head lista)) (fst (head lista)) ++ descompactar (tail lista)
+
 --Função que converte uma string binária em string hexadecimal
 conv "0000" = "0"
 conv "0001" = "1"
@@ -825,13 +831,13 @@ contaIguaisInicio c (x : xs)
    | otherwise = 0
 
 --Função polimórfica que conta uma sequencia de elementos repetidos e retorna ordenados
-contaIguaisInicioPolimorfica :: Eq t => t -> [t] -> Int
+contaIguaisInicioPolimorfica :: (Eq t, Show t) => t -> [t] -> Int
 contaIguaisInicioPolimorfica _ [] = 0
 contaIguaisInicioPolimorfica c (x : xs)
   | c == x = 1 + contaIguaisInicioPolimorfica c xs
   | otherwise = 0
 
-tuplasRepeticao :: Eq t => [t] -> [(t, Int)]
+tuplasRepeticao :: (Eq t, Show t) => [t] -> [(t, Int)]
 tuplasRepeticao [] = []
 tuplasRepeticao (x : xs)
   | xs == [] = [(x, 1)]
@@ -845,15 +851,15 @@ filtroTuplas elem lista = [(e, n) | (e, n) <- lista, e == elem]
 
 ordemAparicao :: Eq t => [t] -> [t]
 ordemAparicao [] = []
-ordemAparicao (x : xs) = [x] ++ ordemAparicao [e|e<-xs,e/=x]    
+ordemAparicao (x : xs) = [x] ++ ordemAparicao [e|e <-xs, e /= x]    
 
-resultado::Eq t=>[t]->[(t,Int)]
-resultado lista = concat [filtroTuplas ele tuplas|ele<-(ordemAparicao lista)]
+resultado::Eq t =>[t]->[(t,Int)]
+resultado lista = concat [filtroTuplas ele tuplas|ele <-(ordemAparicao lista)]
   where
     tuplas =  tuplasRepeticao lista
 
 --Funnção que comprime elementos repetidos
-comprimirElem :: (Eq t, Show t) => [t] -> String
+comprimirElem :: (Eq t, Show t) => [t] -> [t]
 comprimirElem [] = []
 comprimirElem (x : xs)
    | xs == [] = show x
