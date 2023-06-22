@@ -755,8 +755,113 @@ analise frase palavra listaVazia
     |otherwise = analise (tail frase) (head frase:palavra) listaVazia
 
 --                  POLIMORFISMO
+--Função polimórfica que filtra as palvras de uma lista maiores ou iguais a um determinado n 
 filtroLista :: Int -> [[a]] -> [[a]]
 filtroLista n lista = [p | p <- lista, length p >= n]
+
+--Função que verifica se dois números são iguais
+polimorfismo :: (Num a, Eq a) => a -> a -> Bool
+polimorfismo x y
+    |x == y = True
+    |otherwise = False
+
+-- Fução que forma pares com números de duas listas
+fazPar :: [t] -> [u] -> [(t,u)]
+fazPar n m = [ (a, b) | a <- n, b <- m]
+
+-- Função que retorna uma tupla de listas; uma lista com os primeiros elementos da tupla e a outra com os segundos elementos
+unZip::[(u,v)]->([u],[v])
+unZip lista = ([fst e|e<-lista],[snd e|e<-lista])
+
+contador :: Eq a => a -> [a] -> Int
+contador item lista
+    | length lista == 0 = 0
+    | item /= head lista = 0
+    | otherwise = 1 + contador item (tail lista)
+
+--Função que retorna a quantidade de aparições de um elemento em uma lista de forma ordenada
+organizador :: Ord a => [a] -> [(a, Int)]
+organizador lista = quickSortPoli (organizadorAUX lista (head lista) 1)
+
+organizadorAUX :: Eq a => [a] -> a -> Int -> [(a, Int)]
+organizadorAUX lista anterior aux
+    | length lista == 0 = []
+    | aux == 1 = [(head lista, contador (head lista) lista)] ++ organizadorAUX (tail lista) (head lista) 0
+    | head lista == anterior = organizadorAUX (tail lista) (head lista) 0
+    | otherwise = [(head lista, contador (head lista) lista)] ++ organizadorAUX (tail lista) (head lista) 0
+
+quickSortPoli :: Ord a => [a] -> [a]
+quickSortPoli [] = []
+quickSortPoli (x:xs) =
+    let smallerSorted = quickSortPoli [a | a <- xs, a <= x]
+        biggerSorted = quickSortPoli [a | a <- xs, a > x]
+    in smallerSorted ++ [x] ++ biggerSorted
+
+--Função que conta sequência de caractres em uma string
+contarSequencia :: String -> String
+contarSequencia [] = []
+contarSequencia (cabeca : cauda) = auxContarSequencia 0 cabeca (cabeca : cauda)
+
+auxContarSequencia :: Int -> Char -> String -> String
+auxContarSequencia qtd letra [] = letra : show qtd
+auxContarSequencia qtd letra (cabeca : cauda)
+    | letra == cabeca = auxContarSequencia (qtd+1) letra cauda
+    | otherwise = letra : show qtd ++ auxContarSequencia 1 cabeca cauda
+
+--Função que comprime uma sequência de caractres em uma string
+comprimir :: String -> String
+comprimir "" = ""
+comprimir (x : xs)
+   | xs == [] = [x]
+   | x /= head xs = x : (comprimir xs)
+   | otherwise = x : (show cont) ++ comprimir (drop cont (x : xs))
+   where
+    cont = contaIguaisInicio x (x : xs)
+
+contaIguaisInicio :: Char -> String -> Int
+contaIguaisInicio _ [] = 0
+contaIguaisInicio c (x : xs)
+   | c == x = 1 + contaIguaisInicio c xs
+   | otherwise = 0
+
+--Função polimórfica que conta uma sequencia de elementos repetidos e retorna ordenados
+contaIguaisInicioPolimorfica :: Eq t => t -> [t] -> Int
+contaIguaisInicioPolimorfica _ [] = 0
+contaIguaisInicioPolimorfica c (x : xs)
+  | c == x = 1 + contaIguaisInicioPolimorfica c xs
+  | otherwise = 0
+
+tuplasRepeticao :: Eq t => [t] -> [(t, Int)]
+tuplasRepeticao [] = []
+tuplasRepeticao (x : xs)
+  | xs == [] = [(x, 1)]
+  | x /= head xs = (x, 1) : (tuplasRepeticao xs)
+  | otherwise = (x, cont) : (tuplasRepeticao (drop cont (x : xs)))
+  where
+    cont = contaIguaisInicioPolimorfica x (x : xs)
+
+filtroTuplas :: Eq t => t -> [(t, Int)] -> [(t, Int)]
+filtroTuplas elem lista = [(e, n) | (e, n) <- lista, e == elem]
+
+ordemAparicao :: Eq t => [t] -> [t]
+ordemAparicao [] = []
+ordemAparicao (x : xs) = [x] ++ ordemAparicao [e|e<-xs,e/=x]    
+
+resultado::Eq t=>[t]->[(t,Int)]
+resultado lista = concat [filtroTuplas ele tuplas|ele<-(ordemAparicao lista)]
+  where
+    tuplas =  tuplasRepeticao lista
+
+--Funnção que comprime elementos repetidos
+comprimirElem :: (Eq t, Show t) => [t] -> String
+comprimirElem [] = []
+comprimirElem (x : xs)
+   | xs == [] = show x
+   | x /= head xs = (show x) ++ (comprimirElem xs)
+   | otherwise = (show x) ++ (show cont) ++ comprimirElem (drop cont (x : xs))
+   where
+    cont = contaIguaisInicioPolimorfica x (x:xs)
+
 
 --Função que recebe dois números inseridos pelo terminal e retorna a soma
 main :: IO ()
