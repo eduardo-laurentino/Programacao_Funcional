@@ -563,10 +563,10 @@ retornaPalavra texto novoTexto
     |otherwise = retornaPalavra( tail texto) (head texto:novoTexto)
 
 --Função descompcta  -> EX: [('a', 4)] -> "aaaa"
-descompactar :: Eq a => [(a, Int)] -> [a]
-descompactar lista
+descompacta :: Eq a => [(a, Int)] -> [a]
+descompacta lista
     |lista == [] = []
-    |otherwise = replicate (snd (head lista)) (fst (head lista)) ++ descompactar (tail lista)
+    |otherwise = replicate (snd (head lista)) (fst (head lista)) ++ descompacta (tail lista)
 
 --Função que converte uma string binária em string hexadecimal
 conv "0000" = "0"
@@ -855,19 +855,29 @@ ordemAparicao (x : xs) = [x] ++ ordemAparicao [e|e <-xs, e /= x]
 
 resultado::Eq t =>[t]->[(t,Int)]
 resultado lista = concat [filtroTuplas ele tuplas|ele <-(ordemAparicao lista)]
-  where
-    tuplas =  tuplasRepeticao lista
+    where
+        tuplas = tuplasRepeticao lista
 
---Funnção que comprime elementos repetidos
-comprimirElem :: (Eq t, Show t) => [t] -> [t]
-comprimirElem [] = []
-comprimirElem (x : xs)
-   | xs == [] = show x
-   | x /= head xs = (show x) ++ (comprimirElem xs)
-   | otherwise = (show x) ++ (show cont) ++ comprimirElem (drop cont (x : xs))
-   where
-    cont = contaIguaisInicioPolimorfica x (x:xs)
+--Função que busca a partir de um filtro elementos de uma lista
+filtro :: Eq a => (a -> Bool) -> [a] -> [a]  
+filtro _ [] = []  
+filtro p (x:xs)  
+  |p x = x : filtro p xs  
+  |otherwise = filtro p xs 
 
+totalFiltro :: Eq a => (a -> Bool) -> [a] -> Int
+totalFiltro a lista = length(filtro a lista)
+
+--Função descompcta  -> EX: [('a', 4)] -> "aaaa"
+descompactar :: Eq a => [(a, Int)] -> [a]
+descompactar lista
+    |lista == [] = []
+    |otherwise = replica (snd (head lista)) (fst (head lista)) ++ descompactar (tail lista)
+
+replica :: Eq a => Int -> a -> [a]
+replica numero caractere
+    |numero == 0 = []
+    |otherwise = caractere: replica (numero-1) caractere
 
 --Função que recebe dois números inseridos pelo terminal e retorna a soma
 main :: IO ()
