@@ -2,7 +2,6 @@ import System.IO
 import Data.Char 
 import Data.String
 
-
 -- Definindo o tipo de dados para o registro
 data Pessoa = Pessoa
   { nome :: String,
@@ -10,7 +9,7 @@ data Pessoa = Pessoa
   rua :: String,
   casa :: Int,
   cidade :: String
-  } deriving (Eq, Show)
+  } deriving (Eq, Show, Ord)
 
 -- Definindo a base de dados como uma lista de pessoas
 baseDados :: [Pessoa]
@@ -23,18 +22,20 @@ baseDados =
 -- Função que mostra o menu e retorna a opção escolhida
 mostrarMenu :: IO ()
 mostrarMenu = do
-    putStrLn "===== MENU ====="
-    putStrLn "1. BUSCA PESSOA"
-    putStrLn "2. CADASTRAR PESSOA"
-    putStrLn "3. ATUALIZAR DADOS PESSOA"
-    putStrLn "4. RELATÓRIO"
-    putStrLn "5. IDADE MÉDIA POPULAÇÃO"
-    putStrLn "================="
-    putStrLn "Escolha uma opção: "
-    opcao <- getChar
-    putStrLn ""
-    executarOpcao opcao
-    mostrarMenu
+  putStrLn "===== MENU ====="
+  putStrLn "1. BUSCA PESSOA"
+  putStrLn "2. CADASTRAR PESSOA"
+  putStrLn "3. ATUALIZAR DADOS PESSOA"
+  putStrLn "4. RELATÓRIO"
+  putStrLn "5. IDADE MÉDIA POPULAÇÃO"
+  putStrLn "6. VISUALIZAR DADOS"
+  putStrLn "7. SAIR"
+  putStrLn "================="
+  putStrLn "Escolha uma opção: "
+  opcao <- getChar
+  putStrLn ""
+  executarOpcao opcao
+  mostrarMenu
 
 -- Função que executa a opção escolhida pelo usuário
 executarOpcao :: Char -> IO ()
@@ -43,8 +44,9 @@ executarOpcao '2' = cadastrarPessoa
 executarOpcao '3' = putStrLn "Você escolheu a opção 3."
 executarOpcao '4' = dadosBuscaCidade
 executarOpcao '5' = calculaMediaIdade
-executarOpcao '6' = putStrLn "Saindo..."
-executarOpcao _   = putStrLn "Opção inválida."
+executarOpcao '6' = print baseDadosOrdenada
+executarOpcao '7' = putStrLn "Saindo..."
+executarOpcao _ = putStrLn "Opção inválida."
 
 -- Função para buscar uma pessoa pelo nome na base de dados
 buscarPessoa :: String -> [Pessoa] -> Maybe Pessoa
@@ -92,10 +94,37 @@ dadosBuscaCidade = do
     cidade -> putStrLn $ "Pessoas morando nesta cidade: " ++ show cidade
 
 --Função para cadastrar uma pessoa na base de dados
+adicionarPessoa :: Pessoa -> [Pessoa] -> [Pessoa]
+adicionarPessoa pessoa base = pessoa : base
+
 cadastrarPessoa :: IO ()
 cadastrarPessoa = do
-    putStrLn "Digite um nome:"
-    s1 <- getLine
-    putStr "O nome informado foi: "
-    let n1 = read s1 :: String
-    putStrLn (n1)
+  putStrLn "Digite o nome da Pessoa:"
+  nome <- getLine
+  putStrLn "Digite a Idade:"
+  idade <- getLine
+  putStrLn "Digite o nome da rua:"
+  rua <- getLine
+  putStrLn "Digite o número da casa:"
+  casa <- getLine
+  putStrLn "Digite o nome da cidade:"
+  cidade <- getLine
+  let novaPessoa = Pessoa nome (read idade :: Int) rua (read casa :: Int) cidade
+  let novaBaseDados = adicionarPessoa novaPessoa baseDados
+  putStrLn "Pessoa cadastrada com Sucesso !!"
+  print novaBaseDados
+
+
+--Função que ordena uma lista de inteiros
+compararPorNome :: Pessoa -> Pessoa -> Ordering
+compararPorNome p1 p2 = compare (nome p1) (nome p2)
+
+quicksort :: (a -> a -> Ordering) -> [a] -> [a]
+quicksort _ [] = []
+quicksort cmp (x:xs) =
+  let menores = quicksort cmp [a | a <- xs, cmp a x == LT]
+      maiores = quicksort cmp [a | a <- xs, cmp a x /= LT]
+  in menores ++ [x] ++ maiores
+
+baseDadosOrdenada :: [Pessoa]
+baseDadosOrdenada = quicksort compararPorNome baseDados
