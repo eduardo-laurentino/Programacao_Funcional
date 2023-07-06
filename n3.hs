@@ -13,11 +13,12 @@ data Pessoa = Pessoa
 
 -- Definindo a base de dados como uma lista de pessoas
 baseDados :: [Pessoa]
-baseDados =
-  [ Pessoa "Joao" 25 "Rua A" 20 "Caxias",
+baseDados = [Pessoa "Joao" 25 "Rua A" 20 "Caxias",
   Pessoa "Maria" 30 "Rua B" 21 "Timon",
-  Pessoa "Carlos" 40 "Rua C" 21 "Caxias"
-  ]
+  Pessoa "Carlos" 40 "Rua C" 21 "Caxias",
+  Pessoa "Joao" 25 "Rua A" 20 "Caxias",
+  Pessoa "Maria" 30 "Rua B" 21 "Timon",
+  Pessoa "Carlos" 40 "Rua C" 21 "Caxias"]
 
 -- Função que mostra o menu e retorna a opção escolhida
 mostrarMenu :: IO ()
@@ -93,9 +94,9 @@ dadosBuscaCidade = do
   case cidadeEncontrada of
     cidade -> putStrLn $ "Pessoas morando nesta cidade: " ++ show cidade
 
---Função para cadastrar uma pessoa na base de dados
+-- Função para cadastrar uma pessoa na base de dados
 adicionarPessoa :: Pessoa -> [Pessoa] -> [Pessoa]
-adicionarPessoa pessoa base = pessoa : base
+adicionarPessoa pessoa base = [pessoa] ++ base
 
 cadastrarPessoa :: IO ()
 cadastrarPessoa = do
@@ -115,7 +116,7 @@ cadastrarPessoa = do
   print novaBaseDados
 
 
---Função que ordena uma lista de inteiros
+-- Função que ordena uma lista de inteiros
 compararPorNome :: Pessoa -> Pessoa -> Ordering
 compararPorNome p1 p2 = compare (nome p1) (nome p2)
 
