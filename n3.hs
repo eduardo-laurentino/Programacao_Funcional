@@ -59,13 +59,6 @@ quicksort cmp (x:xs) =
 baseDadosOrdenada :: [Registro] -> [Registro]
 baseDadosOrdenada pessoa = quicksort compararPorNome pessoa
 
--- Função para buscar na base de dados a quantidade de pessoas morando em uma cidade
-buscarPessoa :: String -> [Registro] -> IO ()
-buscarPessoa _ [] = putStrLn "Base de dados vazia"
-buscarPessoa name (pessoa : pessoas)
-  | name == (nome pessoa) = putStrLn "Pessoa cadastrada!"
-  | pessoas == [] = putStrLn "Pessoa não cadastrada!"
-  | otherwise = buscarPessoa name pessoas
 
 -- Função para adicionar uma pessoa na base de dados
 adicionarPessoa :: [Registro] -> IO [Registro]
