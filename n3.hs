@@ -63,21 +63,21 @@ baseDadosOrdenada pessoa = quicksort compararPorNome pessoa
 buscarPessoa :: String -> [Registro] -> IO ()
 buscarPessoa _ [] = putStrLn "Base de dados vazia"
 buscarPessoa name (pessoa : pessoas)
-  | name == (nome pessoa) = putStrLn "Pessoa encontrada"
-  | pessoas == [] = putStrLn "Pessoa não encontrada"
+  | name == (nome pessoa) = putStrLn "Pessoa cadastrada!"
+  | pessoas == [] = putStrLn "Pessoa não cadastrada!"
   | otherwise = buscarPessoa name pessoas
 
 -- Função para adicionar uma pessoa na base de dados
 adicionarPessoa :: [Registro] -> IO [Registro]
 adicionarPessoa dados = do
   putStrLn "\n-------ADICIONAR-------"
-  putStrLn "Digite o nome"
+  putStrLn "Digite o nome: "
   nome <- getLine
-  putStrLn "Digite a idade"
+  putStrLn "Digite a idade: "
   idade <- getLine
-  putStrLn "Digite o nome da rua"
+  putStrLn "Digite o nome da rua: "
   rua <- getLine
-  putStrLn "Digite o número da casa"
+  putStrLn "Digite o número da casa: "
   casa <- getLine
   putStrLn "Digite a cidade"
   cidade <- getLine
