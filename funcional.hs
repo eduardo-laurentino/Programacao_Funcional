@@ -20,7 +20,7 @@ somaFat x
 media :: Double -> Double -> Double
 media x y = (x + y) / 2 
 
---A função notaFinal chama a função media passando os dois valores e retoena a media.
+--A função notaFinal chama a função media passando os dois valores e retorna a media.
 notaFinal :: Double
 notaFinal = media 5 3
 
@@ -785,7 +785,7 @@ contador item lista
     | item /= head lista = 0
     | otherwise = 1 + contador item (tail lista)
 
---Função que retorna a quantidade de aparições de um elemento em uma lista de forma ordenada
+--Função polimorfica que retorna a quantidade de aparições de um elemento em uma lista de forma ordenada
 organizador :: Ord a => [a] -> [(a, Int)]
 organizador lista = quickSortPoli (organizadorAUX lista (head lista) 1)
 
@@ -878,6 +878,21 @@ replica :: Eq a => Int -> a -> [a]
 replica numero caractere
     |numero == 0 = []
     |otherwise = caractere: replica (numero-1) caractere
+
+-- função que recebe dois números e divide o primeiro pelo segundo
+safediv :: Double -> Double -> Maybe Double
+safediv _ 0 = Nothing
+safediv x y = Just (x / y)
+test :: IO ()
+test = do
+    putStrLn "digite dois números"
+    a <- readLn
+    b <- readLn
+    case safediv a b of
+        Nothing -> do putStrLn "divisão por zero"
+                      putStrLn "tente novamente"
+                      test
+        Just z -> putStrLn ("resposta: " ++ show z)
 
 --Função que recebe dois números inseridos pelo terminal e retorna a soma
 main :: IO ()
