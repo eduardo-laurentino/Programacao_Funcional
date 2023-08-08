@@ -141,7 +141,7 @@ multiplicacao x y
     |y > 0 = x + multiplicacao x (y-1)
     |otherwise = negate (multiplicacao x (negate y))
 
---Função que retorna o0 resultado de uma potência
+--Função que retorna o resultado de uma potência
 potencia :: Int -> Int ->  Int
 potencia x y
     |x == 0 && y /= 0 = x
