@@ -4,6 +4,11 @@ import Data.String
 soma :: Int -> Int -> Int
 soma x y = x + y
 
+--Função que recebe um booleano e retorna sua negação
+not :: Bool -> Bool
+not True = False
+not False = True
+
 --Função que gera o fatorial de um número
 fat :: Int -> Int
 fat x 
